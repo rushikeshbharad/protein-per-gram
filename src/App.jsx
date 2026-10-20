@@ -1,32 +1,33 @@
 import { useState } from 'react';
-import { Link, NavLink, Route, Routes } from 'react-router-dom';
+import { Link, NavLink, Route, Routes, useSearchParams } from 'react-router-dom';
+import mixBowlImage from '../pictures/mix-bowl.png';
+import chanaBowlImage from '../pictures/chana-bowl.jpeg';
+import moongMatkiBowlImage from '../pictures/moong-matki.PNG';
+import logo from '../pictures/logo.png';
 
 const bowls = [
   {
-    name: 'The Green Machine',
-    detail: 'Herby chickpeas · avocado · crunchy greens',
-    protein: '22g protein',
-    image:
-      'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1000&q=85',
-    alt: 'Colorful bowl of fresh greens, vegetables, and grains',
+    name: 'Mix Sprouts Bowl',
+    detail: 'Boiled Sprouts · Boiled Peanuts · Chopped Onions · Lemon · Tangy Chutney',
+    protein: '20g protein',
+    image: mixBowlImage,
+    alt: 'Mix Sprouts Bowl',
     className: 'bowl-image--green',
   },
   {
-    name: 'Smoky Peanut Crunch',
-    detail: 'Smoky tofu · peanut dressing · roasted veggies',
-    protein: '24g protein',
-    image:
-      'https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?auto=format&fit=crop&w=1000&q=85',
-    alt: 'Fresh plant-based bowl with vegetables and grains',
+    name: 'Chana Sprouts Bowl',
+    detail: 'Boiled Chana · Boiled Peanuts · Chopped Onions · Lemon · Tangy Chutney',
+    protein: '20g protein',
+    image: chanaBowlImage,
+    alt: 'Chana Bowl',
     className: 'bowl-image--peanut',
   },
   {
-    name: 'Everyday Dal Bowl',
-    detail: 'Comforting lentils · brown rice · bright chutney',
-    protein: '21g protein',
-    image:
-      'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1000&q=85',
-    alt: 'Warm bowl of nourishing lentils and vegetables',
+    name: 'Matki-Moong Sprouts Bowl',
+    detail: 'Boiled Matki-Moong · Boiled Peanuts · Chopped Onions · Lemon · Tangy Chutney',
+    protein: '20g protein',
+    image: moongMatkiBowlImage,
+    alt: 'Matki-Moong Sprouts Bowl',
     className: 'bowl-image--dal',
   },
 ];
@@ -35,8 +36,8 @@ function Header() {
   return (
     <header className="site-header">
       <Link aria-label="Protein Per Gram home" className="wordmark" to="/">
-        <span className="wordmark-mark">P<span>+</span></span>
-        <span>protein per gram</span>
+        <img alt="Protein Per Gram logo" className="wordmark-mark" src={logo} />
+        <span>Protein Per Gram</span>
       </Link>
       <nav aria-label="Main navigation" className="main-nav">
         <NavLink end to="/">Home</NavLink>
@@ -51,9 +52,12 @@ function Header() {
 function Footer() {
   return (
     <footer className="site-footer">
-      <Link aria-label="Protein Per Gram home" className="footer-wordmark" to="/">P+ protein per gram</Link>
+      <Link aria-label="Protein Per Gram home" className="footer-wordmark" to="/">
+        <img alt="Protein Per Gram logo" className="wordmark-mark" src={logo} />
+        <span>protein per gram</span>
+      </Link>
       <span>Good food. More strength. Less fuss.</span>
-      <a href="https://www.swiggy.com/search?query=protein%20bowl%20Pashan" rel="noreferrer" target="_blank">
+      <a href="https://www.swiggy.com/menu/1461049" className="swiggy-link" rel="noreferrer" target="_blank">
         Find us on Swiggy <span aria-hidden="true">↗</span>
       </a>
     </footer>
@@ -66,25 +70,27 @@ function Home() {
       <section className="hero">
         <div className="hero-copy">
           <p className="eyebrow"><span className="eyebrow-dot" /> FUEL FOR YOUR EVERYDAY</p>
-          <h1>Big protein.<br /><span>Little price.</span></h1>
+          <div className="hero-branding">
+            <img alt="Protein Per Gram logo" className="hero-logo" src={logo} />
+            <h1>Protein Per Gram</h1>
+          </div>
           <p className="hero-description">
-            Plant-powered bowls made fresh for your next rep, run, or regular Tuesday.
+            Plant-powered bowls for your next rep, run, or a regular high protein day.
           </p>
           <div className="hero-proof">
             <span className="proof-icon" aria-hidden="true">✳</span>
-            <p><strong>20+ grams</strong> of plant protein<br />for <strong>under ₹100.</strong></p>
+            <p><strong>20+ grams</strong> of plant protein</p>
           </div>
           <Link className="button button--dark" to="/gym">Bring bowls to my gym <span aria-hidden="true">↗</span></Link>
-          <a className="text-link" href="https://www.swiggy.com/search?query=protein%20bowl%20Pashan" rel="noreferrer" target="_blank">
+          <a className="text-link swiggy-link" href="https://www.swiggy.com/menu/1461049" rel="noreferrer" target="_blank">
             Order on Swiggy <span aria-hidden="true">↗</span>
           </a>
         </div>
         <div className="hero-visual" aria-label="Fresh plant-based protein bowl" role="img">
-          <div className="hero-sun" />
           <img
             alt="Fresh salad bowl with colorful vegetables and greens"
             className="hero-bowl"
-            src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=90"
+            src={mixBowlImage}
           />
           <div className="hero-sticker"><span>PLANTS</span><strong>POWER<br />PEOPLE</strong><span>✳ EVERY DAY</span></div>
           <div className="hero-caption">Fresh things<br />for strong days <span>↗</span></div>
@@ -127,48 +133,166 @@ function Home() {
   );
 }
 
+const COMMUNITIES = [
+  { name: 'Lifepro Fitness Club', value: 'lifepro' },
+  { name: 'Five Elements Fit Nation Gym', value: 'five-elements-fit-nation' },
+  { name: 'Maharudra Fitness', value: 'maharudra' },
+];
+
+const BOWLS = [
+  { name: 'Matki Sprouts', value: 'matki', price: 90 },
+  { name: 'Moong Sprouts', value: 'moong', price: 90 },
+  { name: 'Chana Sprouts', value: 'chana', price: 90 },
+  { name: 'Matki-Moong Sprouts', value: 'matki-moong', price: 100 },
+  { name: 'Mix Sprouts', value: 'mix', price: 110 },
+];
+
 function Gym() {
-  const [submitted, setSubmitted] = useState(false);
+  const [searchParams] = useSearchParams();
+  const [boiledPeanuts, setBoiledPeanuts] = useState(true);
+
+  const communityParam = searchParams.get('community');
+  const validCommunity = COMMUNITIES.some((community) => community.value === communityParam)
+    ? communityParam
+    : '';
+
+  const [choppedOnion, setChoppedOnion] = useState(true);
+  const [lemonSlices, setLemonSlices] = useState(true);
+  const [tangyTomatoChutney, setTangyTomatoChutney] = useState(true);
 
   function handleSubmit(event) {
     event.preventDefault();
-    setSubmitted(true);
+
+    const communitySelect = document.getElementById('community');
+    const nameInput = document.getElementById('name');
+    const bowlSelect = document.getElementById('bowl');
+
+    if (!communitySelect?.value) {
+      communitySelect?.focus();
+      return;
+    }
+
+    if (!nameInput?.value.trim()) {
+      nameInput?.focus();
+      return;
+    }
+
+    if (!bowlSelect?.value) {
+      bowlSelect?.focus();
+      return;
+    }
+
+    const phone = '+917028835294';
+    const selectedBowl = BOWLS.find((bowl) => bowl.value === bowlSelect.value);
+    const communityName = COMMUNITIES.find((community) => community.value === communitySelect.value)?.name;
+    const text = encodeURIComponent(
+      'Protein Per Gram,\n\nI am *' + nameInput.value.trim() + '*\n\nMy tomorrow order.\n' +
+      'At: ' + (communityName ? `*${communityName}*` :  'Not selected') + '\n\n' +
+      'Bowl: ' + (selectedBowl ? `*${selectedBowl.name} | ₹${selectedBowl.price}*` : 'Not selected') + '\n\n' +
+      'Boiled Peanuts: *' + (boiledPeanuts ? '✅ I want Boiled Peanuts' : '❌ Don’t send Boiled Peanuts') + '*\n' +
+      'Chopped Onion: *' + (choppedOnion ? '✅ I want Chopped Onion' : '❌ Don’t send Chopped Onion') + '*\n' +
+      'Lemon Slices: *' + (lemonSlices ? '✅ I want Lemon Slices' : '❌ Don’t send Lemon Slices') + '*\n' +
+      'Tangy Tomato Chutney: *' + (tangyTomatoChutney ? '✅ I want Tangy Tomato Chutney' : '❌ Don’t send Tangy Tomato Chutney') +
+      '*\n\n Below is the screenshot of payment.'
+    );
+
+    window.open(`https://wa.me/${phone}?text=${text}`, '_blank', 'noopener,noreferrer');
   }
 
   return (
     <main className="inner-page">
-      <section className="page-intro gym-intro">
-        <p className="eyebrow"><span className="eyebrow-dot" /> FOR GYMS & COMMUNITIES</p>
-        <h1>Good bowls.<br /><em>Good company.</em></h1>
-        <p>Bring affordable, plant-powered protein to the people who make your gym feel like a community.</p>
-      </section>
       <section className="gym-content">
         <div className="gym-aside">
-          <span className="aside-mark">P+</span>
+          <img alt="Protein Per Gram logo" className="aside-mark" src={logo} />
           <h2>A better<br />post-workout<br /><em>starts here.</em></h2>
-          <p>Tell us a little about your space. We’ll get back to you about stocking fresh bowls at your gym.</p>
-          <div className="aside-facts"><span>20+ g protein</span><span>Under ₹100</span><span>Plant powered</span></div>
+          <div className="aside-facts"><span>20+ g protein</span><span>Plant powered</span></div>
         </div>
         <form className="gym-form" onSubmit={handleSubmit}>
-          <p className="eyebrow">LET’S TALK</p>
-          <h2>Tell us about your gym.</h2>
+          <p className="eyebrow">ORDER FOR TOMORROW</p>
+          <label htmlFor="community">Community</label>
+          <select disabled={Boolean(validCommunity)} id="community" name="community" required value={validCommunity || ''}>
+            <option value="">Select a gym</option>
+            {COMMUNITIES.map((community) => (
+              <option key={community.value} value={community.value}>
+                {community.name}
+              </option>
+            ))}
+          </select>
           <label htmlFor="name">Your name</label>
           <input autoComplete="name" id="name" name="name" placeholder="e.g. Aarya Shah" required />
-          <label htmlFor="email">Email address</label>
-          <input autoComplete="email" id="email" name="email" placeholder="you@example.com" required type="email" />
-          <label htmlFor="gym-name">Gym or community name</label>
-          <input id="gym-name" name="gym" placeholder="Where do you train?" required />
-          <label htmlFor="message">Anything else? <span>(optional)</span></label>
-          <textarea id="message" name="message" placeholder="Tell us what you have in mind..." rows="3" />
+          <label htmlFor="bowl">Community</label>
+          <select id="bowl" name="bowl" required>
+            <option value="">Select a Bowl</option>
+            {BOWLS.map((bowl) => (
+              <option key={bowl.name} value={bowl.value}>
+                {bowl.name } | ₹{bowl.price}
+              </option>
+            ))}
+          </select>
+
+          <div className="toggle-row">
+            <label htmlFor="boiled-peanuts">Boiled Peanuts</label>
+            <div className="toggle-control">
+              <span className="toggle-status">{boiledPeanuts ? 'I want Boiled Peanuts' : 'Don’t send Boiled Peanuts'}</span>
+              <button
+                aria-pressed={boiledPeanuts}
+                className={`toggle-button ${boiledPeanuts ? 'is-on' : ''}`}
+                id="boiled-peanuts"
+                onClick={() => setBoiledPeanuts((prev) => !prev)}
+                type="button"
+              >
+                <span className="toggle-thumb" />
+              </button>
+            </div>
+          </div>
+          <div className="toggle-row">
+            <label htmlFor="chopped-onion">Chopped Onion</label>
+            <div className="toggle-control">
+              <span className="toggle-status">{choppedOnion ? 'I want Chopped Onion' : 'Don’t send Chopped Onion'}</span>
+              <button
+                aria-pressed={choppedOnion}
+                className={`toggle-button ${choppedOnion ? 'is-on' : ''}`}
+                id="chopped-onion"
+                onClick={() => setChoppedOnion((prev) => !prev)}
+                type="button"
+              >
+                <span className="toggle-thumb" />
+              </button>
+            </div>
+          </div>
+          <div className="toggle-row">
+            <label htmlFor="lemon-slices">Lemon Slices</label>
+            <div className="toggle-control">
+              <span className="toggle-status">{lemonSlices ? 'I want Lemon Slices' : 'Don’t send Lemon Slices'}</span>
+              <button
+                aria-pressed={lemonSlices}
+                className={`toggle-button ${lemonSlices ? 'is-on' : ''}`}
+                id="lemon-slices"
+                onClick={() => setLemonSlices((prev) => !prev)}
+                type="button"
+              >
+                <span className="toggle-thumb" />
+              </button>
+            </div>
+          </div>
+          <div className="toggle-row">
+            <label htmlFor="tangy-tomato-chutney">Tangy Tomato Chutney</label>
+            <div className="toggle-control">
+              <span className="toggle-status">{tangyTomatoChutney ? 'I want Tangy Tomato Chutney' : 'Don’t send Tangy Tomato Chutney'}</span>
+              <button
+                aria-pressed={tangyTomatoChutney}
+                className={`toggle-button ${tangyTomatoChutney ? 'is-on' : ''}`}
+                id="tangy-tomato-chutney"
+                onClick={() => setTangyTomatoChutney((prev) => !prev)}
+                type="button"
+              >
+                <span className="toggle-thumb" />
+              </button>
+            </div>
+          </div>
           <button className="button button--dark form-submit" type="submit">
-            Send an enquiry <span aria-hidden="true">↗</span>
+            Order <span aria-hidden="true">↗</span>
           </button>
-          {submitted && (
-            <p aria-live="polite" className="form-success" role="status">
-              Thanks for your interest! This form is a front-end preview and does not send enquiries yet.
-            </p>
-          )}
-          <p className="form-note">We’re starting around Pashan, Pune. We’d love to hear from you.</p>
         </form>
       </section>
     </main>
@@ -198,7 +322,7 @@ function Contact() {
           </div>
           <div className="contact-detail">
             <span className="detail-number">03</span>
-            <div><p className="eyebrow">HUNGRY RIGHT NOW?</p><h2>Check Swiggy</h2><p>Search for protein bowls around Pashan.</p><a className="inline-link" href="https://www.swiggy.com/search?query=protein%20bowl%20Pashan" rel="noreferrer" target="_blank">Find us on Swiggy <span aria-hidden="true">↗</span></a></div>
+            <div><p className="eyebrow">HUNGRY RIGHT NOW?</p><h2>Check Swiggy</h2><p>Search for protein bowls around Pashan.</p><a className="inline-link" href="https://www.swiggy.com/menu/1461049" rel="noreferrer" target="_blank">Find us on Swiggy <span aria-hidden="true">↗</span></a></div>
           </div>
         </div>
         <div className="map-wrap">
