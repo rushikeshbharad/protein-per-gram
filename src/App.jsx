@@ -162,6 +162,7 @@ function Gym() {
   const [choppedOnion, setChoppedOnion] = useState(true);
   const [lemonSlices, setLemonSlices] = useState(true);
   const [tangyTomatoChutney, setTangyTomatoChutney] = useState(true);
+  const [cutlery, setCutlery] = useState(false);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -189,14 +190,18 @@ function Gym() {
     const selectedBowl = BOWLS.find((bowl) => bowl.value === bowlSelect.value);
     const communityName = COMMUNITIES.find((community) => community.value === communitySelect.value)?.name;
     const orderHash = new Date().getTime().toString(36).toUpperCase();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const date = tomorrow.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
     const text = encodeURIComponent(
-      'Protein Per Gram,\n\nI am *' + nameInput.value.trim() + '*\n\nMy order for tomorrow - ' + ` *#${orderHash}*` + '\n' +
+      '_Protein Per Gram_,\n\nI am *' + nameInput.value.trim() + '*\n\nOrder for' + ` ${date} - ` + ` *#${orderHash}*` + '\n' +
       'At: ' + (communityName ? `*${communityName}*` :  'Not selected') + '\n\n' +
       'Bowl: ' + (selectedBowl ? `*${selectedBowl.name} | ₹${selectedBowl.price}*` : 'Not selected') + '\n\n' +
-      'Boiled Peanuts: *' + (boiledPeanuts ? '✅ I want Boiled Peanuts' : '❌ Don’t send Boiled Peanuts') + '*\n' +
-      'Chopped Onion: *' + (choppedOnion ? '✅ I want Chopped Onion' : '❌ Don’t send Chopped Onion') + '*\n' +
-      'Lemon Slices: *' + (lemonSlices ? '✅ I want Lemon Slices' : '❌ Don’t send Lemon Slices') + '*\n' +
-      'Tangy Tomato Chutney: *' + (tangyTomatoChutney ? '✅ I want Tangy Tomato Chutney' : '❌ Don’t send Tangy Tomato Chutney') +
+      'Peanuts: *' + (boiledPeanuts ? '✅ I want Peanuts' : '❌ Don’t send Peanuts') + '*\n' +
+      'Onion: *' + (choppedOnion ? '✅ I want Onion' : '❌ Don’t send Onion') + '*\n' +
+      'Lemon: *' + (lemonSlices ? '✅ I want Lemon' : '❌ Don’t send Lemon') + '*\n' +
+      'Chutney: *' + (tangyTomatoChutney ? '✅ I want Chutney' : '❌ Don’t send Chutney') + '*\n' +
+      'Cutlery: *' + (cutlery ? '✅ I want Cutlery' : '❌ Don’t send Cutlery') +
       '*\n\n Below is the screenshot of payment.'
     );
 
@@ -298,6 +303,23 @@ function Gym() {
                 className={`toggle-button ${tangyTomatoChutney ? 'is-on' : ''}`}
                 id="tangy-tomato-chutney"
                 onClick={() => setTangyTomatoChutney((prev) => !prev)}
+                type="button"
+              >
+                <span className="toggle-thumb" />
+              </button>
+            </div>
+          </div>
+          <div className="toggle-row">
+            <div className="toggle-label-group">
+              <label htmlFor="cutlery">Cutlery (Tissue & Spoon)</label>
+              <span className="toggle-status">{cutlery ? '✅ I want Cutlery' : '❌ Don’t send Cutlery'}</span>
+            </div>
+            <div className="toggle-control">
+              <button
+                aria-pressed={cutlery}
+                className={`toggle-button ${cutlery ? 'is-on' : ''}`}
+                id="cutlery"
+                onClick={() => setCutlery((prev) => !prev)}
                 type="button"
               >
                 <span className="toggle-thumb" />
