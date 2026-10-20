@@ -44,7 +44,10 @@ function Header() {
         <NavLink to="/gym">Bowl at my Gym</NavLink>
         <NavLink to="/contact">Contact</NavLink>
       </nav>
-      <Link className="header-cta" to="/gym">Partner with us <span aria-hidden="true">↗</span></Link>
+      <Link aria-label="Protein Per Gram home" className="hidden wordmark" to="/">
+        <img alt="Protein Per Gram logo" className="wordmark-mark" src={logo} />
+        <span>Protein Per Gram</span>
+      </Link>
     </header>
   );
 }
@@ -54,7 +57,7 @@ function Footer() {
     <footer className="site-footer">
       <Link aria-label="Protein Per Gram home" className="footer-wordmark" to="/">
         <img alt="Protein Per Gram logo" className="wordmark-mark" src={logo} />
-        <span>protein per gram</span>
+        <span>Protein Per Gram</span>
       </Link>
       <span>Good food. More strength. Less fuss.</span>
       <a href="https://www.swiggy.com/menu/1461049" className="swiggy-link" rel="noreferrer" target="_blank">
@@ -305,30 +308,25 @@ function Contact() {
 
   return (
     <main className="inner-page">
-      <section className="page-intro contact-intro">
-        <p className="eyebrow"><span className="eyebrow-dot" /> COME SAY HI</p>
-        <h1>Good things<br /><em>are close by.</em></h1>
-        <p>We’re bringing plant-powered bowls to gym-goers around Pashan, Pune.</p>
-      </section>
       <section className="contact-content">
         <div className="contact-details">
           <div className="contact-detail">
             <span className="detail-number">01</span>
-            <div><p className="eyebrow">FIND OUR NEIGHBOURHOOD</p><h2>Pashan, Pune</h2><p>Maharashtra, India</p></div>
+            <div><p className="eyebrow">FIND OUR NEIGHBOURHOOD</p><h2>Pashan, Pune</h2><p>Maharashtra, India</p><a className="inline-link" href="tel:+917028835294" rel="noreferrer" target="_blank">+91 70288 35294</a></div>
           </div>
           <div className="contact-detail">
             <span className="detail-number">02</span>
-            <div><p className="eyebrow">GET IN TOUCH</p><h2>Gym or community?</h2><p>Tell us where you train and we’ll explore bringing bowls to your space.</p><Link className="inline-link" to="/gym">Send us an enquiry <span aria-hidden="true">↗</span></Link></div>
+            <div><p className="eyebrow">GET BREAKFAST AT NEARBY CENTER</p><h2>Order tomorrow breakfast</h2><p>Tell us where you train and we’ll explore bringing bowls to your space.</p><Link className="inline-link" to="/gym">Order at nearby center <span aria-hidden="true">↗</span></Link></div>
           </div>
           <div className="contact-detail">
             <span className="detail-number">03</span>
-            <div><p className="eyebrow">HUNGRY RIGHT NOW?</p><h2>Check Swiggy</h2><p>Search for protein bowls around Pashan.</p><a className="inline-link" href="https://www.swiggy.com/menu/1461049" rel="noreferrer" target="_blank">Find us on Swiggy <span aria-hidden="true">↗</span></a></div>
+            <div><p className="eyebrow">HUNGRY RIGHT NOW?</p><h2>Order on Swiggy</h2><p>Search for protein bowls around Pashan.</p><a className="inline-link swiggy-link" href="https://www.swiggy.com/menu/1461049" rel="noreferrer" target="_blank">Find us on Swiggy <span aria-hidden="true">↗</span></a></div>
           </div>
         </div>
         <div className="map-wrap">
           <iframe
-            title="Map showing Pashan, Pune"
-            src={`https://www.google.com/maps?q=${latitude},${longitude}&z=14&output=embed`}
+            title="Protein Per Gram"
+            src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.829857437662!2d73.78964097453076!3d18.53658928256006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bfd2497a352d%3A0x942a8c143ae8d7e7!2sProtein%20Per%20Gram!5e0!3m2!1sen!2sin!4v1792491815214!5m2!1sen!2sin`}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
