@@ -130,7 +130,7 @@ function Home() {
       <section className="bottom-banner">
         <p className="eyebrow">GOOD FOOD BELONGS EVERYWHERE</p>
         <h2>Your gym could<br />be our <em>next stop.</em></h2>
-        <Link className="button button--light" to="/gym">Let’s make it happen <span aria-hidden="true">↗</span></Link>
+        <Link className="button button--light" to="/gym">Order now <span aria-hidden="true">↗</span></Link>
       </section>
     </main>
   );
@@ -188,8 +188,9 @@ function Gym() {
     const phone = '+917028835294';
     const selectedBowl = BOWLS.find((bowl) => bowl.value === bowlSelect.value);
     const communityName = COMMUNITIES.find((community) => community.value === communitySelect.value)?.name;
+    const orderHash = new Date().getTime().toString(36).toUpperCase();
     const text = encodeURIComponent(
-      'Protein Per Gram,\n\nI am *' + nameInput.value.trim() + '*\n\nMy tomorrow order.\n' +
+      'Protein Per Gram,\n\nI am *' + nameInput.value.trim() + '*\n\nMy order for tomorrow - ' + ` *#${orderHash}*` + '\n' +
       'At: ' + (communityName ? `*${communityName}*` :  'Not selected') + '\n\n' +
       'Bowl: ' + (selectedBowl ? `*${selectedBowl.name} | ₹${selectedBowl.price}*` : 'Not selected') + '\n\n' +
       'Boiled Peanuts: *' + (boiledPeanuts ? '✅ I want Boiled Peanuts' : '❌ Don’t send Boiled Peanuts') + '*\n' +
@@ -202,6 +203,8 @@ function Gym() {
     window.open(`https://wa.me/${phone}?text=${text}`, '_blank', 'noopener,noreferrer');
   }
 
+  console.log('validCommunity => ', Boolean(validCommunity));
+
   return (
     <main className="inner-page">
       <section className="gym-content">
@@ -213,7 +216,7 @@ function Gym() {
         <form className="gym-form" onSubmit={handleSubmit}>
           <p className="eyebrow">ORDER FOR TOMORROW</p>
           <label htmlFor="community">Community</label>
-          <select disabled={Boolean(validCommunity)} id="community" name="community" required value={validCommunity || ''}>
+          <select id="community" name="community" required {...(Boolean(validCommunity) ? { disabled: true, value: validCommunity || '' } : {} )}>
             <option value="">Select a gym</option>
             {COMMUNITIES.map((community) => (
               <option key={community.value} value={community.value}>
@@ -234,9 +237,11 @@ function Gym() {
           </select>
 
           <div className="toggle-row">
-            <label htmlFor="boiled-peanuts">Boiled Peanuts</label>
+            <div className="toggle-label-group">
+              <label htmlFor="boiled-peanuts">Boiled Peanuts</label>
+              <span className="toggle-status">{boiledPeanuts ? '✅ I want Boiled Peanuts' : '❌ Don’t send Boiled Peanuts'}</span>
+            </div>
             <div className="toggle-control">
-              <span className="toggle-status">{boiledPeanuts ? 'I want Boiled Peanuts' : 'Don’t send Boiled Peanuts'}</span>
               <button
                 aria-pressed={boiledPeanuts}
                 className={`toggle-button ${boiledPeanuts ? 'is-on' : ''}`}
@@ -249,9 +254,11 @@ function Gym() {
             </div>
           </div>
           <div className="toggle-row">
-            <label htmlFor="chopped-onion">Chopped Onion</label>
+            <div className="toggle-label-group">
+              <label htmlFor="chopped-onion">Chopped Onion</label>
+              <span className="toggle-status">{choppedOnion ? '✅ I want Chopped Onion' : '❌ Don’t send Chopped Onion'}</span>
+            </div>
             <div className="toggle-control">
-              <span className="toggle-status">{choppedOnion ? 'I want Chopped Onion' : 'Don’t send Chopped Onion'}</span>
               <button
                 aria-pressed={choppedOnion}
                 className={`toggle-button ${choppedOnion ? 'is-on' : ''}`}
@@ -264,9 +271,11 @@ function Gym() {
             </div>
           </div>
           <div className="toggle-row">
-            <label htmlFor="lemon-slices">Lemon Slices</label>
+            <div className="toggle-label-group">
+              <label htmlFor="lemon-slices">Lemon Slices</label>
+              <span className="toggle-status">{lemonSlices ? '✅ I want Lemon Slices' : '❌ Don’t send Lemon Slices'}</span>
+            </div>
             <div className="toggle-control">
-              <span className="toggle-status">{lemonSlices ? 'I want Lemon Slices' : 'Don’t send Lemon Slices'}</span>
               <button
                 aria-pressed={lemonSlices}
                 className={`toggle-button ${lemonSlices ? 'is-on' : ''}`}
@@ -279,9 +288,11 @@ function Gym() {
             </div>
           </div>
           <div className="toggle-row">
-            <label htmlFor="tangy-tomato-chutney">Tangy Tomato Chutney</label>
+            <div className="toggle-label-group">
+              <label htmlFor="tangy-tomato-chutney">Tangy Tomato Chutney</label>
+              <span className="toggle-status">{tangyTomatoChutney ? '✅ I want Tangy Tomato Chutney' : '❌ Don’t send Tangy Tomato Chutney'}</span>
+            </div>
             <div className="toggle-control">
-              <span className="toggle-status">{tangyTomatoChutney ? 'I want Tangy Tomato Chutney' : 'Don’t send Tangy Tomato Chutney'}</span>
               <button
                 aria-pressed={tangyTomatoChutney}
                 className={`toggle-button ${tangyTomatoChutney ? 'is-on' : ''}`}
