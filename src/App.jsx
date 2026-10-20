@@ -202,7 +202,7 @@ function Gym() {
       'Lemon: *' + (lemonSlices ? '✅ I want Lemon' : '❌ Don’t send Lemon') + '*\n' +
       'Chutney: *' + (tangyTomatoChutney ? '✅ I want Chutney' : '❌ Don’t send Chutney') + '*\n' +
       'Cutlery: *' + (cutlery ? '✅ I want Cutlery' : '❌ Don’t send Cutlery') +
-      '*\n\n Below is the screenshot of payment.'
+      '*\n\nBelow is the screenshot of payment of ' + `₹${selectedBowl.price}.`
     );
 
     window.open(`https://wa.me/${phone}?text=${text}`, '_blank', 'noopener,noreferrer');
