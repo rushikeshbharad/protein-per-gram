@@ -41,7 +41,7 @@ function Header() {
       </Link>
       <nav aria-label="Main navigation" className="main-nav">
         <NavLink end to="/">Home</NavLink>
-        <NavLink to="/gym">Bowl at my Gym</NavLink>
+        <NavLink to="/order">Order</NavLink>
         <NavLink to="/contact">Contact</NavLink>
       </nav>
       <Link aria-label="Protein Per Gram home" className="hidden wordmark" to="/">
@@ -84,10 +84,10 @@ function Home() {
             <span className="proof-icon" aria-hidden="true">✳</span>
             <p><strong>20+ grams</strong> of plant protein</p>
           </div>
-          <Link className="button button--dark" to="/gym">Bring bowls to my gym <span aria-hidden="true">↗</span></Link>
-          <a className="text-link swiggy-link" href="https://www.swiggy.com/menu/1461049" rel="noreferrer" target="_blank">
+          <a className="swiggy-button" href="https://www.swiggy.com/menu/1461049" rel="noreferrer" target="_blank">
             Order on Swiggy <span aria-hidden="true">↗</span>
           </a>
+          <Link className="gap-left button button--dark" to="/order">Deliver At My Community</Link>
         </div>
         <div className="hero-visual" aria-label="Fresh plant-based protein bowl" role="img">
           <img
@@ -130,16 +130,14 @@ function Home() {
       <section className="bottom-banner">
         <p className="eyebrow">GOOD FOOD BELONGS EVERYWHERE</p>
         <h2>Your gym could<br />be our <em>next stop.</em></h2>
-        <Link className="button button--light" to="/gym">Order now <span aria-hidden="true">↗</span></Link>
+        <Link className="button button--light" to="/order">Order now <span aria-hidden="true">↗</span></Link>
       </section>
     </main>
   );
 }
 
 const COMMUNITIES = [
-  { name: 'Lifepro Fitness Club', value: 'lifepro' },
-  { name: 'Five Elements Fit Nation Gym', value: 'five-elements-fit-nation' },
-  { name: 'Maharudra Fitness', value: 'maharudra' },
+  { name: 'Protein Per Gram', value: 'ppg' }
 ];
 
 const BOWLS = [
@@ -150,7 +148,7 @@ const BOWLS = [
   { name: 'Mix Sprouts', value: 'mix', price: 110 },
 ];
 
-function Gym() {
+function Order() {
   const [searchParams] = useSearchParams();
   const [boiledPeanuts, setBoiledPeanuts] = useState(true);
 
@@ -208,13 +206,21 @@ function Gym() {
     window.open(`https://wa.me/${phone}?text=${text}`, '_blank', 'noopener,noreferrer');
   }
 
-  console.log('validCommunity => ', Boolean(validCommunity));
-
   return (
     <main className="inner-page">
       <section className="gym-content">
         <div className="gym-aside">
-          <img alt="Protein Per Gram logo" className="aside-mark" src={logo} />
+          <div className="logo-with-swiggy-link">
+            <img alt="Protein Per Gram logo" className="aside-mark" src={logo} />
+            <a
+              className="aside-swiggy-link"
+              href="https://www.swiggy.com/menu/1461049"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Order on Swiggy <span aria-hidden="true">↗</span>
+            </a>
+          </div>
           <h2>A better<br />post-workout<br /><em>starts here.</em></h2>
           <div className="aside-facts"><span>20+ g protein</span><span>Plant powered</span></div>
         </div>
@@ -222,7 +228,7 @@ function Gym() {
           <p className="eyebrow">ORDER FOR TOMORROW</p>
           <label htmlFor="community">Community</label>
           <select id="community" name="community" required {...(Boolean(validCommunity) ? { disabled: true, value: validCommunity || '' } : {} )}>
-            <option value="">Select a gym</option>
+            <option value="">Select your community</option>
             {COMMUNITIES.map((community) => (
               <option key={community.value} value={community.value}>
                 {community.name}
@@ -326,7 +332,7 @@ function Gym() {
               </button>
             </div>
           </div>
-          <button className="button button--dark form-submit" type="submit">
+          <button className="order-button order-button--dark form-submit" type="submit">
             Order <span aria-hidden="true">↗</span>
           </button>
         </form>
@@ -349,7 +355,7 @@ function Contact() {
           </div>
           <div className="contact-detail">
             <span className="detail-number">02</span>
-            <div><p className="eyebrow">GET BREAKFAST AT NEARBY CENTER</p><h2>Order tomorrow breakfast</h2><p>Tell us where you train and we’ll explore bringing bowls to your space.</p><Link className="inline-link" to="/gym">Order at nearby center <span aria-hidden="true">↗</span></Link></div>
+            <div><p className="eyebrow">GET BREAKFAST AT NEARBY CENTER</p><h2>Order tomorrow breakfast</h2><p>Tell us where you train and we’ll explore bringing bowls to your space.</p><Link className="inline-link" to="/order">Order at nearby center <span aria-hidden="true">↗</span></Link></div>
           </div>
           <div className="contact-detail">
             <span className="detail-number">03</span>
@@ -387,7 +393,7 @@ export default function App() {
       <Header />
       <Routes>
         <Route element={<Home />} path="/" />
-        <Route element={<Gym />} path="/gym" />
+        <Route element={<Order />} path="/order" />
         <Route element={<Contact />} path="/contact" />
         <Route element={<NotFound />} path="*" />
       </Routes>
