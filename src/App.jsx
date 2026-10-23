@@ -137,7 +137,7 @@ function Home() {
 }
 
 const COMMUNITIES = [
-  { name: 'Protein Per Gram', value: 'ppg' }
+  { name: 'Five Elements Fit Nation', value: 'fit-nation' }
 ];
 
 const BOWLS = [
