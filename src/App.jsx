@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, NavLink, Route, Routes, useSearchParams } from 'react-router-dom';
 import mixBowlImage from '../pictures/mix-bowl.png';
 import chanaBowlImage from '../pictures/chana-bowl.jpeg';
@@ -68,6 +68,10 @@ function Footer() {
 }
 
 function Home() {
+  useEffect(() => {
+    document.title = 'Protein Per Gram | 20+ grams of protein per bowl';
+  }, []);
+
   return (
     <main>
       <section className="hero">
@@ -149,6 +153,10 @@ const BOWLS = [
 ];
 
 function Order() {
+  useEffect(() => {
+    document.title = 'Protein Per Gram | Order tomorrow breakfast at your community';
+  }, []);
+
   const [searchParams] = useSearchParams();
   const [boiledPeanuts, setBoiledPeanuts] = useState(true);
 
@@ -343,6 +351,10 @@ function Order() {
 }
 
 function Contact() {
+  useEffect(() => {
+    document.title = 'Protein Per Gram | Contact Us';
+  }, []);
+
   const latitude = 18.5362;
   const longitude = 73.792;
 
