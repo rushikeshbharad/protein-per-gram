@@ -156,6 +156,7 @@ function Order() {
   const validCommunity = COMMUNITIES.some((community) => community.value === communityParam)
     ? communityParam
     : '';
+  const selectedCommunity = COMMUNITIES.find((community) => community.value === validCommunity);
 
   const [choppedOnion, setChoppedOnion] = useState(true);
   const [lemonSlices, setLemonSlices] = useState(true);
@@ -225,7 +226,7 @@ function Order() {
           <div className="aside-facts"><span>20+ g protein</span><span>Plant powered</span></div>
         </div>
         <form className="gym-form" onSubmit={handleSubmit}>
-          <p className="eyebrow">ORDER FOR TOMORROW</p>
+          <p className="eyebrow">ORDER BY 8PM TO GET YOUR BOWL AT <strong>{selectedCommunity?.name || 'YOUR COMMUNITY'}</strong> TOMORROW MORNING</p>
           <label htmlFor="community">Community</label>
           <select id="community" name="community" required {...(Boolean(validCommunity) ? { disabled: true, value: validCommunity || '' } : {} )}>
             <option value="">Select your community</option>

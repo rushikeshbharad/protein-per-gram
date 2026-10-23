@@ -48,7 +48,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .hero { position: relative; display: grid; grid-template-columns: 1fr 1fr; width: min(1440px, 100%); min-height: 590px; margin: 0 auto; padding: 63px 6.1% 76px; overflow: hidden; }
 .hero-copy { z-index: 1; align-self: center; padding: 8px 0 26px; }
-.eyebrow { display: flex; align-items: center; gap: 8px; margin: 0; color: #777b70; font-size: 9px; font-weight: 700; letter-spacing: .14em; }
+.eyebrow { margin: 0; color: #777b70; font-size: 9px; font-weight: 700; letter-spacing: .14em; }
+.eyebrow strong { color: var(--ink); text-transform: uppercase; }
 .eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
 h1, h2, h3, p { margin-top: 0; }
 .hero-branding { display: flex; align-items: center; gap: 14px; margin: 14px 0 18px; }
