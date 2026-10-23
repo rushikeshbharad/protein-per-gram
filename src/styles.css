@@ -229,6 +229,7 @@ h1, h2, h3, p { margin-top: 0; }
   .contact-content { grid-template-columns: 1fr; gap: 34px; padding: 37px 0 55px; }
   .contact-details { gap: 26px; }
   .map-wrap, .map-wrap iframe { min-height: 300px; }
+  .gap-left { margin-left: 0; margin-top: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
