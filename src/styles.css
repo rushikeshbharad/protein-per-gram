@@ -138,7 +138,7 @@ h1, h2, h3, p { margin-top: 0; }
 .gym-form textarea { resize: vertical; }
 .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin: 18px 0 10px; }
 .toggle-row label { margin: 0; }
-.toggle-label-group { display: flex; flex-direction: column; gap: 4px; }
+.toggle-label-group { display: flex; flex-direction: column; gap: 4px; cursor: pointer; }
 .toggle-control { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
 .toggle-status { min-width: 170px; color: #5d6159; font-size: 10px; font-weight: 600; text-align: left; }
 .toggle-button { position: relative; width: 52px; height: 30px; padding: 0; border: 1px solid #c7cabf; border-radius: 999px; background: #dfe4d5; cursor: pointer; transition: background .2s ease; }

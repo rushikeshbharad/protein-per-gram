@@ -249,7 +249,7 @@ function Order() {
           </select>
 
           <div className="toggle-row">
-            <div className="toggle-label-group">
+            <div className="toggle-label-group" onClick={() => setBoiledPeanuts((prev) => !prev)}>
               <label htmlFor="boiled-peanuts">Boiled Peanuts</label>
               <span className="toggle-status">{boiledPeanuts ? '✅ I want Boiled Peanuts' : '❌ Don’t send Boiled Peanuts'}</span>
             </div>
@@ -266,7 +266,7 @@ function Order() {
             </div>
           </div>
           <div className="toggle-row">
-            <div className="toggle-label-group">
+            <div className="toggle-label-group" onClick={() => setChoppedOnion((prev) => !prev)}>
               <label htmlFor="chopped-onion">Chopped Onion</label>
               <span className="toggle-status">{choppedOnion ? '✅ I want Chopped Onion' : '❌ Don’t send Chopped Onion'}</span>
             </div>
@@ -283,7 +283,7 @@ function Order() {
             </div>
           </div>
           <div className="toggle-row">
-            <div className="toggle-label-group">
+            <div className="toggle-label-group" onClick={() => setLemonSlices((prev) => !prev)}>
               <label htmlFor="lemon-slices">Lemon Slices</label>
               <span className="toggle-status">{lemonSlices ? '✅ I want Lemon Slices' : '❌ Don’t send Lemon Slices'}</span>
             </div>
@@ -300,7 +300,7 @@ function Order() {
             </div>
           </div>
           <div className="toggle-row">
-            <div className="toggle-label-group">
+            <div className="toggle-label-group" onClick={() => setTangyTomatoChutney((prev) => !prev)}>
               <label htmlFor="tangy-tomato-chutney">Tangy Tomato Chutney</label>
               <span className="toggle-status">{tangyTomatoChutney ? '✅ I want Tangy Tomato Chutney' : '❌ Don’t send Tangy Tomato Chutney'}</span>
             </div>
@@ -317,7 +317,7 @@ function Order() {
             </div>
           </div>
           <div className="toggle-row">
-            <div className="toggle-label-group">
+            <div className="toggle-label-group" onClick={() => setCutlery((prev) => !prev)}>
               <label htmlFor="cutlery">Cutlery (Tissue & Spoon)</label>
               <span className="toggle-status">{cutlery ? '✅ I want Cutlery' : '❌ Don’t send Cutlery'}</span>
             </div>
