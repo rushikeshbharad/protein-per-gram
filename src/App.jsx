@@ -237,7 +237,7 @@ function Order() {
           </select>
           <label htmlFor="name">Your name</label>
           <input autoComplete="name" id="name" name="name" placeholder="e.g. Aarya Shah" required />
-          <label htmlFor="bowl">Community</label>
+          <label htmlFor="bowl">Item</label>
           <select id="bowl" name="bowl" required>
             <option value="">Select a Bowl</option>
             {BOWLS.map((bowl) => (
