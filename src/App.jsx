@@ -154,10 +154,6 @@ const BOWLS = [
 ];
 
 function Order() {
-  useEffect(() => {
-    document.title = 'Protein Per Gram | Order tomorrow breakfast at your community';
-  }, []);
-
   const [searchParams] = useSearchParams();
   const [boiledPeanuts, setBoiledPeanuts] = useState(true);
 
@@ -171,6 +167,14 @@ function Order() {
   const [lemonSlices, setLemonSlices] = useState(true);
   const [tangyTomatoChutney, setTangyTomatoChutney] = useState(true);
   const [cutlery, setCutlery] = useState(false);
+
+  useEffect(() => {
+    if (selectedCommunity?.name) {
+      document.title = `Protein Per Gram | Breakfast at ${selectedCommunity?.name}`;
+    } else {
+      document.title = 'Protein Per Gram | Order tomorrow breakfast at your community';
+    }
+  }, [selectedCommunity]);
 
   function handleSubmit(event) {
     event.preventDefault();
