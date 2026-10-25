@@ -142,7 +142,8 @@ function Home() {
 
 const COMMUNITIES = [
   { name: 'B2-801, Kumar Shantiniketan', value: 'b2-801-ksn' },
-  { name: 'Five Elements Fit Nation', value: 'fit-nation' }
+  { name: 'Five Elements Fit Nation', value: 'fit-nation' },
+  { name: 'Life Pro', value: 'lifepro' }
 ];
 
 const BOWLS = [
