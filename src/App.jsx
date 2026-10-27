@@ -264,7 +264,7 @@ function Order() {
     tomorrow.setDate(tomorrow.getDate() + 1);
     const date = tomorrow.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
     const text = encodeURIComponent(
-      '_Protein Per Gram_,\n\nOrder for: *' + nameInput.value.trim() + '*\n\nOrder No' + ` *#${orderHash}*` + '\n' +
+      '_Protein Per Gram_,\n\nOrder for: *' + nameInput.value.trim() + '*\nOrder No:' + ` *#${orderHash}*` + '\n\n' +
       'At: ' + (communityName ? `*${communityName}*` :  'Not selected') + '\n' +
       'Drop Time: *' + selectedDropTime + '*\n\n' +
       'Bowl: ' + (selectedBowl ? `*${selectedBowl.name} | ₹${selectedBowl.price}*` : 'Not selected') + '\n\n' +
