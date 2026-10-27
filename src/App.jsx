@@ -154,15 +154,71 @@ const BOWLS = [
   { name: 'Mix Sprouts', value: 'mix', price: 110 },
 ];
 
+function addDays(date, days) {
+  const nextDate = new Date(date);
+  nextDate.setDate(nextDate.getDate() + days);
+  return nextDate;
+}
+
+function formatDateForDisplay(date) {
+  return new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  }).format(date);
+}
+
+function getRelativeDayLabel(offset) {
+  if (offset === 0) return 'Today';
+  if (offset === 1) return 'Tomorrow';
+  if (offset === 2) return 'Day after';
+  if (offset === 3) return '2 days after';
+  return `${offset} Days after`;
+}
+
+function getDropTimeOptions() {
+  const now = new Date();
+  const currentHour = now.getHours();
+
+  if (currentHour >= 0 && currentHour < 12) {
+    return [
+      { value: 'today-6pm', label: `${getRelativeDayLabel(0)} (${formatDateForDisplay(now)})\nEvening 6:30` },
+      { value: 'tomorrow-7am', label: `${getRelativeDayLabel(1)} (${formatDateForDisplay(addDays(now, 1))})\nMorning 7:30` },
+      { value: 'tomorrow-6pm', label: `${getRelativeDayLabel(1)} (${formatDateForDisplay(addDays(now, 1))})\nEvening 6:30` },
+      { value: 'day-after-tomorrow-7am', label: `${getRelativeDayLabel(2)} (${formatDateForDisplay(addDays(now, 2))})\nMorning 7:30` },
+    ];
+  }
+
+  if (currentHour >= 12 && currentHour < 20) {
+    return [
+      { value: 'tomorrow-7am', label: `${getRelativeDayLabel(1)} (${formatDateForDisplay(addDays(now, 1))})\nMorning 7:30` },
+      { value: 'tomorrow-6pm', label: `${getRelativeDayLabel(1)} (${formatDateForDisplay(addDays(now, 1))})\nEvening 6:30` },
+      { value: 'day-after-tomorrow-7am', label: `${getRelativeDayLabel(2)} (${formatDateForDisplay(addDays(now, 2))})\nMorning 7:30` },
+      { value: 'day-after-tomorrow-6pm', label: `${getRelativeDayLabel(2)} (${formatDateForDisplay(addDays(now, 2))})\nEvening 6:30` },
+    ];
+  }
+
+  return [
+    { value: 'tomorrow-6pm', label: `${getRelativeDayLabel(1)} (${formatDateForDisplay(addDays(now, 1))})\nEvening 6:30` },
+    { value: 'day-after-tomorrow-7am', label: `${getRelativeDayLabel(2)} (${formatDateForDisplay(addDays(now, 2))})\nMorning 7:30` },
+    { value: 'day-after-tomorrow-6pm', label: `${getRelativeDayLabel(2)} (${formatDateForDisplay(addDays(now, 2))})\nEvening 6:30` },
+    { value: 'two-days-after-tomorrow-7am', label: `${getRelativeDayLabel(3)} (${formatDateForDisplay(addDays(now, 3))})\nMorning 7:30` },
+  ];
+}
+
 function Order() {
   const [searchParams] = useSearchParams();
   const [boiledPeanuts, setBoiledPeanuts] = useState(true);
+  const dropTimeOptions = getDropTimeOptions();
+  const [dropTime, setDropTime] = useState(dropTimeOptions[0]?.value ?? '');
 
   const communityParam = searchParams.get('community');
   const validCommunity = COMMUNITIES.some((community) => community.value === communityParam)
     ? communityParam
     : '';
   const selectedCommunity = COMMUNITIES.find((community) => community.value === validCommunity);
+  console.log('validCommunity => ', validCommunity)
+  console.log('selectedCommunity => ', selectedCommunity)
 
   const [choppedOnion, setChoppedOnion] = useState(true);
   const [lemonSlices, setLemonSlices] = useState(true);
@@ -202,6 +258,7 @@ function Order() {
     const phone = '+917028835294';
     const selectedBowl = BOWLS.find((bowl) => bowl.value === bowlSelect.value);
     const communityName = COMMUNITIES.find((community) => community.value === communitySelect.value)?.name;
+    const selectedDropTime = dropTimeOptions.find((option) => option.value === dropTime)?.label ?? 'Not selected';
     const orderHash = new Date().getTime().toString(36).toUpperCase();
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -209,6 +266,7 @@ function Order() {
     const text = encodeURIComponent(
       '_Protein Per Gram_,\n\nI am *' + nameInput.value.trim() + '*\n\nOrder for' + ` ${date} - ` + ` *#${orderHash}*` + '\n' +
       'At: ' + (communityName ? `*${communityName}*` :  'Not selected') + '\n\n' +
+      'Drop Time: *' + selectedDropTime + '*\n' +
       'Bowl: ' + (selectedBowl ? `*${selectedBowl.name} | ₹${selectedBowl.price}*` : 'Not selected') + '\n\n' +
       'Peanuts: *' + (boiledPeanuts ? '✅ I want Peanuts' : '❌ Don’t send Peanuts') + '*\n' +
       'Onion: *' + (choppedOnion ? '✅ I want Onion' : '❌ Don’t send Onion') + '*\n' +
@@ -240,7 +298,7 @@ function Order() {
           <div className="aside-facts"><span>20+ g protein</span><span>Plant powered</span></div>
         </div>
         <form className="gym-form" onSubmit={handleSubmit}>
-          <p className="eyebrow">ORDER BY 8PM TO GET YOUR BOWL AT <strong>{selectedCommunity?.name || 'YOUR COMMUNITY'}</strong> TOMORROW MORNING</p>
+          <p className="eyebrow">GET YOUR BOWL AT <strong>{selectedCommunity?.name || 'YOUR COMMUNITY'}</strong> TOMORROW MORNING</p>
           <label htmlFor="community">Community</label>
           <select id="community" name="community" required {...(Boolean(validCommunity) ? { disabled: true, value: validCommunity || '' } : {} )}>
             <option value="">Select your community</option>
@@ -250,8 +308,24 @@ function Order() {
               </option>
             ))}
           </select>
+          <label htmlFor="drop-time">Select Drop Time</label>
+          <div className="drop-time-options" role="radiogroup" aria-labelledby="drop-time">
+            {dropTimeOptions.map((option) => (
+              <label className="drop-time-option" htmlFor={option.value} key={option.value}>
+                <span>{option.label}</span>
+                <input
+                  checked={dropTime === option.value}
+                  id={option.value}
+                  name="drop-time"
+                  onChange={() => setDropTime(option.value)}
+                  type="radio"
+                  value={option.value}
+                />
+              </label>
+            ))}
+          </div>
           <label htmlFor="name">Your name</label>
-          <input autoComplete="name" id="name" name="name" placeholder="e.g. Aarya Shah" required />
+          <input autoComplete="name" id="name" name="name" placeholder="e.g. Arya Stark" required />
           <label htmlFor="bowl">Item</label>
           <select id="bowl" name="bowl" required>
             <option value="">Select a Bowl</option>
