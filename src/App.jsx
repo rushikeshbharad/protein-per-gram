@@ -258,15 +258,15 @@ function Order() {
     const phone = '+917028835294';
     const selectedBowl = BOWLS.find((bowl) => bowl.value === bowlSelect.value);
     const communityName = COMMUNITIES.find((community) => community.value === communitySelect.value)?.name;
-    const selectedDropTime = dropTimeOptions.find((option) => option.value === dropTime)?.label ?? 'Not selected';
+    const selectedDropTime = dropTimeOptions.find((option) => option.value === dropTime)?.label?.replace('\n', ' ') ?? 'Not selected';
     const orderHash = new Date().getTime().toString(36).toUpperCase();
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     const date = tomorrow.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
     const text = encodeURIComponent(
       '_Protein Per Gram_,\n\nI am *' + nameInput.value.trim() + '*\n\nOrder for' + ` ${date} - ` + ` *#${orderHash}*` + '\n' +
-      'At: ' + (communityName ? `*${communityName}*` :  'Not selected') + '\n\n' +
-      'Drop Time: *' + selectedDropTime + '*\n' +
+      'At: ' + (communityName ? `*${communityName}*` :  'Not selected') + '\n' +
+      'Drop Time: *' + selectedDropTime + '*\n\n' +
       'Bowl: ' + (selectedBowl ? `*${selectedBowl.name} | ₹${selectedBowl.price}*` : 'Not selected') + '\n\n' +
       'Peanuts: *' + (boiledPeanuts ? '✅ I want Peanuts' : '❌ Don’t send Peanuts') + '*\n' +
       'Onion: *' + (choppedOnion ? '✅ I want Onion' : '❌ Don’t send Onion') + '*\n' +

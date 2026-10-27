@@ -232,6 +232,8 @@ h1, h2, h3, p { margin-top: 0; }
   .gym-aside > p { margin-bottom: 13px; }
   .aside-facts { margin-top: 16px; }
   .gym-form { padding: 24px 20px; }
+  .gym-form label.drop-time-option { font-size: 8px; }
+  .gym-form label.drop-time-option input { width: 9px; height: 9px; margin: 2px 0 0; accent-color: var(--green); cursor: pointer; }
   .contact-content { grid-template-columns: 1fr; gap: 34px; padding: 37px 0 55px; }
   .contact-details { gap: 26px; }
   .map-wrap, .map-wrap iframe { min-height: 300px; }
