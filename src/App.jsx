@@ -298,7 +298,7 @@ function Order() {
           <div className="aside-facts"><span>20+ g protein</span><span>Plant powered</span></div>
         </div>
         <form className="gym-form" onSubmit={handleSubmit}>
-          <p className="eyebrow">GET YOUR BOWL AT <strong>{selectedCommunity?.name || 'YOUR COMMUNITY'}</strong> TOMORROW MORNING</p>
+          <p className="eyebrow">GET YOUR BOWL AT <strong>{selectedCommunity?.name || 'YOUR COMMUNITY'}</strong></p>
           <label htmlFor="community">Community</label>
           <select id="community" name="community" required {...(Boolean(validCommunity) ? { disabled: true, value: validCommunity || '' } : {} )}>
             <option value="">Select your community</option>
